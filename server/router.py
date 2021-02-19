@@ -70,8 +70,8 @@ def get_v2ray_versions():
     try:
         now = time.time()
         if now - last_get_version_time < 60:
-            return jsonify(Msg(True, msg=gettext('Get v2ray version success'), obj=v2ray_versions))
-        with requests.get('https://api.github.com/repos/v2fly/v2ray-core/releases') as response:
+            return jsonify(Msg(True, msg=gettext('Get Xray version success'), obj=v2ray_versions))
+        with requests.get('https://api.github.com/repos/XTLS/Xray-core/releases') as response:
             release_list: List[dict] = response.json()
 
         versions = [release.get('tag_name') for release in release_list]
@@ -90,7 +90,7 @@ def get_v2ray_versions():
 
 @server_bp.route('/install_v2ray/<version>', methods=['POST'])
 def install_v2ray_by_version(version: str):
-    url = f'https://github.com/v2fly/v2ray-core/releases/download/{version}/v2ray-linux-64.zip'
+    url = f'https://github.com/XTLS/Xray-core/releases/download/{version}/Xray-linux-64.zip'
     filename = config.get_dir('v2ray_temp.zip')
     zip_dest_dir = config.get_dir('temp_v2ray')
     try:
@@ -103,8 +103,8 @@ def install_v2ray_by_version(version: str):
 
         bin_dir = config.get_dir('bin')
 
-        origin_names = ['v2ray', 'v2ctl', 'geoip.dat', 'geosite.dat']
-        filenames = ['v2ray-v2-ui', 'v2ctl', 'geoip.dat', 'geosite.dat']
+        origin_names = ['xray', 'geoip.dat', 'geosite.dat']
+        filenames = ['v2ray-v2-ui', 'geoip.dat', 'geosite.dat']
 
         for i in range(len(filenames)):
             origin_name = origin_names[i]
